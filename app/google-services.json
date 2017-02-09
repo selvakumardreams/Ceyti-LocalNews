@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "255571130982",
+    "firebase_url": "https://ceyti-b8a8a.firebaseio.com",
+    "project_id": "ceyti-b8a8a",
+    "storage_bucket": "ceyti-b8a8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255571130982:android:51123b8fe011df2c",
+        "android_client_info": {
+          "package_name": "com.ceyti.tamil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255571130982-59rs1o27bgttps9pj4pfqcddlbt53ou6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTig77YElt0wZyRvAiXd6PNfgM3x9Majs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255571130982-59rs1o27bgttps9pj4pfqcddlbt53ou6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
