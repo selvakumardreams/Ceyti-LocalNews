@@ -8,7 +8,7 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#212121</color>
     <color name="divider">#B6B6B6</color>
-    <color name="redcolor">#B40202</color>
+    <color name="redcolor">#F44336</color>
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
@@ -54,4 +54,15 @@
     <color name="lighter_gray">#ddd</color>
 
     <color name="colorFabRipple">#D84315</color>
+
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="orange">#FF8A65</color>
+
 </resources>

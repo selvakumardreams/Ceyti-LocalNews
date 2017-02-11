@@ -65,6 +65,7 @@ public abstract class PostListFragment extends Fragment {
         mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
 
+
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
         mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.item_post,
