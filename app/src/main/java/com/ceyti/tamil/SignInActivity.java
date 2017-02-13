@@ -308,7 +308,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
     // [END signin]
 
-    private void googleSignOut() {
+    public void googleSignOut() {
         // Firebase sign out
         mAuth.signOut();
 

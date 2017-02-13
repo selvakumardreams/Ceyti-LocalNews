@@ -33,4 +33,6 @@
     <string name="slide_4_title">Travel News</string>
     <string name="slide_4_desc">The latest travel news</string>
 
+    <string name="send_to">Send To</string>
+
 </resources>

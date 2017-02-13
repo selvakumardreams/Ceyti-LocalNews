@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.ceyti.tamil.MainActivity;
 import com.ceyti.tamil.PostDetailActivity;
 import com.ceyti.tamil.R;
 import com.ceyti.tamil.models.Post;
@@ -35,6 +37,7 @@ public abstract class PostListFragment extends Fragment {
     private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
+    private String title, body = null;
 
     public PostListFragment() {
     }
@@ -97,18 +100,64 @@ public abstract class PostListFragment extends Fragment {
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View starView) {
-                        // Need to write to both places the post is stored
-                        DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
-                        DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
+                        int i = starView.getId();
 
-                        // Run two transactions
-                        onStarClicked(globalPostRef);
-                        onStarClicked(userPostRef);
+                        if (i == R.id.star) {
+                            // Need to write to both places the post is stored
+                            DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
+                            DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
+
+                            // Run two transactions
+                            onStarClicked(globalPostRef);
+                            onStarClicked(userPostRef);
+                        } else if (i == R.id.share) {
+                            Log.d(TAG, "Clicked on share");
+                            DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
+                            Log.d(TAG,globalPostRef.toString());
+                            onShareClicked(globalPostRef);
+                        }
+
                     }
                 });
             }
         };
         mRecycler.setAdapter(mAdapter);
+    }
+
+    private void onShareClicked(DatabaseReference postRef) {
+
+        postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Post p = mutableData.getValue(Post.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                title = p.title;
+                body = p.body;
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+
+                if (title != null && body != null ) {
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, title.toString() + "\n" +
+                            body.toString() + "\n" +
+                            "https://play.google.com/store/apps/details?id=com.ceyti.tamil" );
+                    shareIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+                }
+
+            }
+        });
     }
 
     // [START post_stars_transaction]
@@ -155,7 +204,15 @@ public abstract class PostListFragment extends Fragment {
     }
 
     public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else {
+            Log.d(TAG, "Invalid Uid:");
+            getActivity().finish();
+            return "Invalid Uid";
+        }
+
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);
