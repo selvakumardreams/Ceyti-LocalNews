@@ -1,5 +1,6 @@
 package com.ceyti.tamil.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 public abstract class PostListFragment extends Fragment {
 
@@ -38,6 +40,7 @@ public abstract class PostListFragment extends Fragment {
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
     private String title, body = null;
+    private ProgressDialog mProgressDialog;
 
     public PostListFragment() {
     }
@@ -46,8 +49,10 @@ public abstract class PostListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setMessage("Loading please wait...");
+        mProgressDialog.show();
         View rootView = inflater.inflate(R.layout.fragment_all_posts, container, false);
-
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
@@ -69,10 +74,12 @@ public abstract class PostListFragment extends Fragment {
         mRecycler.setLayoutManager(mManager);
 
 
+
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
         mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.item_post,
                 PostViewHolder.class, postsQuery) {
+
             @Override
             protected void populateViewHolder(final PostViewHolder viewHolder, final Post model, final int position) {
                 final DatabaseReference postRef = getRef(position);
@@ -122,6 +129,20 @@ public abstract class PostListFragment extends Fragment {
             }
         };
         mRecycler.setAdapter(mAdapter);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mProgressDialog != null) {
+                    mProgressDialog.hide();
+                    mProgressDialog = null;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void onShareClicked(DatabaseReference postRef) {
@@ -146,7 +167,8 @@ public abstract class PostListFragment extends Fragment {
                 // Transaction completed
                 Log.d(TAG, "postTransaction:onComplete:" + databaseError);
 
-                if (title != null && body != null ) {
+
+               if (title != null && body != null ) {
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);
                     shareIntent.putExtra(Intent.EXTRA_TEXT, title.toString() + "\n" +

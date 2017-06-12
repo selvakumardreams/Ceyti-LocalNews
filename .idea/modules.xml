@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Tamil.iml" filepath="$PROJECT_DIR$/Tamil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ceyti-LocalNews.iml" filepath="$PROJECT_DIR$/Ceyti-LocalNews.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

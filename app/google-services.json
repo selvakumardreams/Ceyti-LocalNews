@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "255571130982-a50kda892h85beajkeipf7qtfga2fr7g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ceyti.tamil",
+            "certificate_hash": "d7d6e5efe01433e7f3f54c7c6405c9e209a004b6"
+          }
+        },
+        {
+          "client_id": "255571130982-7ud1vg5lu3cqm7imcr2nqdav2csrfheh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ceyti.tamil",
+            "certificate_hash": "1e88742ebe59056f94cbf2ad5eb3ed1372500005"
+          }
+        },
+        {
+          "client_id": "255571130982-raqbb8mbee78ds1ic4fq4vanem8g506r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ceyti.tamil",
+            "certificate_hash": "843264f5f75ea69a81595c3675e348f9048b0b0f"
+          }
+        },
+        {
           "client_id": "255571130982-59rs1o27bgttps9pj4pfqcddlbt53ou6.apps.googleusercontent.com",
           "client_type": 3
         }

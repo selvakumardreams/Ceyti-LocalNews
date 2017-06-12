@@ -34,5 +34,6 @@
     <string name="slide_4_desc">The latest travel news</string>
 
     <string name="send_to">Send To</string>
+    <string name="title_activity_x">Map</string>
 
 </resources>
