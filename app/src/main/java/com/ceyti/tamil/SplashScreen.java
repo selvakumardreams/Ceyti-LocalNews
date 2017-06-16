@@ -7,6 +7,8 @@ package com.ceyti.tamil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by m1013673 on 3/1/17.
@@ -19,6 +21,7 @@ public class SplashScreen extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
 
         //   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
